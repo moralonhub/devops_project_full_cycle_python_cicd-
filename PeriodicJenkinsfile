@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+    environment {
+        IMAGE_NAME = "moralon/devops_project_full_cycle_python_cicd"
+        TAG = sh(script: "curl -s https://hub.docker.com/v2/repositories/moralon/devops_project_full_cycle_python_cicd/tags/?page_size=1 | jq -r --raw-output '.results[0].name'", returnStdout: true).trim()
+
+
+    }
+    stages {
+        stage('Run task') {
+            steps {
+                 sh "docker run --name python_cicd --rm moralon/devops_project_full_cycle_python_cicd:${TAG}"
+            }
+        }
+    }
+}
