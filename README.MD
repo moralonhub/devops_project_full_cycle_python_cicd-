@@ -11,7 +11,7 @@ Pipeline "script from SCM" Script path:  "Jenkinsfile".
 
 Jenkinsfile - Utilizes a Docker image of a Python application that is built and pushed to docker repo.
 
-### run by:
+### Run by:
 GitHub Webhooks on every push made to the `dev` branch.
 
 
