@@ -6,13 +6,14 @@ pipeline {
     }
 
     stages {
-
+        // checkout git dev branch to working directory
         stage('Cloning Git') {
             steps {
-                git branch: 'main', credentialsId: 'github', url: 'https://github.com/moralonhub/devops_project_full_cycle_python_cicd-.git'
+                git branch: 'dev', credentialsId: 'github', url: 'https://github.com/moralonhub/devops_project_full_cycle_python_cicd-.git'
             }
         }
 
+        // docker build 
         stage('Build') {
             steps {
 
@@ -28,13 +29,13 @@ pipeline {
                 }
             }
         }
-
+        // login to dockerhub
         stage('Login') {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
-
+        // push to dockerhub
         stage('Push') {
             steps {
                 sh 'docker push moralon/devops_project_full_cycle_python_cicd:${BUILD_NUMBER}'
